@@ -1,17 +1,17 @@
-'use client'
+"use client";
 
-import { useState, useTransition } from 'react';
-import Link from 'next/link';
-import { Todo, Priority } from '../types/todo';
-import { toggleTodo } from '../actions/toggle';
-import { deleteTodo } from '../actions/delete';
-import { bulkDeleteAction, markAllAction } from '../actions/bulk';
-import { timeAgo } from '../lib/timeAgo';
+import { useState, useTransition } from "react";
+import Link from "next/link";
+import { Todo, Priority } from "../types/todo";
+import { toggleTodo } from "../actions/toggle";
+import { deleteTodo } from "../actions/delete";
+import { bulkDeleteAction, markAllAction } from "../actions/bulk";
+import { timeAgo } from "../lib/timeAgo";
 
 const priorityColors: Record<Priority, string> = {
-  high: 'bg-red-100 text-red-700 border-red-200',
-  medium: 'bg-yellow-100 text-yellow-700 border-yellow-200',
-  low: 'bg-green-100 text-green-700 border-green-200',
+  high: "bg-red-100 text-red-700 border-red-200",
+  medium: "bg-yellow-100 text-yellow-700 border-yellow-200",
+  low: "bg-green-100 text-green-700 border-green-200",
 };
 
 export default function TodoList({ todos }: { todos: Todo[] }) {
@@ -20,7 +20,7 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
 
   const toggleSelect = (id: string) => {
     setSelectedIds((prev) =>
-      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id]
+      prev.includes(id) ? prev.filter((item) => item !== id) : [...prev, id],
     );
   };
 
@@ -57,7 +57,9 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
             className="w-4 h-4 rounded border-gray-300 text-blue-600 cursor-pointer"
           />
           <span className="text-sm text-gray-600">
-            {selectedIds.length > 0 ? `${selectedIds.length} selected` : 'Select All'}
+            {selectedIds.length > 0
+              ? `${selectedIds.length} selected`
+              : "Select All"}
           </span>
 
           {selectedIds.length > 0 && (
@@ -66,7 +68,9 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
               disabled={isPending}
               className="ml-2 px-3 py-1 text-xs font-medium bg-red-600 text-white rounded hover:bg-red-700 disabled:opacity-50"
             >
-              {isPending ? 'Deleting...' : `Delete Selected (${selectedIds.length})`}
+              {isPending
+                ? "Deleting..."
+                : `Delete Selected (${selectedIds.length})`}
             </button>
           )}
         </div>
@@ -110,9 +114,11 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
                 <button
                   type="submit"
                   className="text-2xl hover:scale-110 transition-transform"
-                  title={todo.completed ? 'Mark as incomplete' : 'Mark as complete'}
+                  title={
+                    todo.completed ? "Mark as incomplete" : "Mark as complete"
+                  }
                 >
-                  {todo.completed ? '✅' : '⬜'}
+                  {todo.completed ? "✅" : "⬜"}
                 </button>
               </form>
 
@@ -120,7 +126,9 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
                 <div className="flex items-center gap-2">
                   <span
                     className={`text-lg font-medium ${
-                      todo.completed ? 'line-through text-gray-500' : 'text-gray-800'
+                      todo.completed
+                        ? "line-through text-gray-500"
+                        : "text-gray-800"
                     }`}
                   >
                     {todo.title}
@@ -134,8 +142,10 @@ export default function TodoList({ todos }: { todos: Todo[] }) {
                   </span>
                 </div>
 
-             
-                <p className="text-xs text-gray-400 mt-0.5">
+                <p
+                  suppressHydrationWarning
+                  className="text-xs text-gray-400 mt-0.5"
+                >
                   Created {timeAgo(todo.createdAt)}
                   {todo.updatedAt && ` • Updated ${timeAgo(todo.updatedAt)}`}
                 </p>
